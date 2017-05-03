@@ -11,7 +11,7 @@
 
 ## Project Description
 
-packer-vagrant-builder is a project that encapsulates [Packer](https://www.packer.io) templates for building [Vagrant](https://www.vagrantup.com) boxes.
+packer-vagrant-builder is a project that encapsulates [Packer](https://www.packer.io) templates for building [Vagrant](https://www.vagrantup.com) base boxes with Puppet pre-installed.
 
 ## Requirements
 
@@ -34,8 +34,8 @@ $ packer build centos-6.8-x86_64.json
 
 ### Templates
 
-* `centos-6.8-x86_64`: Create a CentOS 6.8 (64 bit) base server
-* `centos-7.3-x86_64`: Create a CentOS 7.3.1611 (64 bit) base server
+* `centos-6.8-x86_64`: Create a CentOS 6.8 (64 bit) server
+* `centos-7.3-x86_64`: Create a CentOS 7.3.1611 (64 bit) server
 
 ## Limitations
 

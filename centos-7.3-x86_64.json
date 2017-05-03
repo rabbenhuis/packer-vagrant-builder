@@ -54,6 +54,7 @@
         "scripts/common/vagrant.sh",
 	    "scripts/centos/development_tools.sh",
         "scripts/common/virtualbox.sh",
+		"scripts/puppet-bootstrap/centos.sh",
         "scripts/centos/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
@@ -78,6 +79,7 @@
     "memory": "512",
     "name": "centos-7.3",
     "no_proxy": "{{env `no_proxy`}}",
+	"puppet_version": "",
     "template": "centos-7.3-x86_64",
     "version": "2.1.TIMESTAMP"
   }
