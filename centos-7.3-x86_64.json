@@ -80,7 +80,7 @@
     "memory": "512",
     "name": "centos-7.3",
     "no_proxy": "{{env `no_proxy`}}",
-	"puppet_version": "",
+	"puppet_version": "1.4.1-1",
     "template": "centos-7.3-x86_64",
     "version": "2.1.TIMESTAMP"
   }
