@@ -1,0 +1,8 @@
+# Ignore build Vagrant boxes
+builds/*.box
+
+# Ignore packer_cache directory
+packer_cache
+
+# Ignore output directory
+packer-
