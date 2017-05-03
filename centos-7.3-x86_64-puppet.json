@@ -45,7 +45,8 @@
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
+        "no_proxy={{user `no_proxy`}}",
+		"PUPPET_VERSION={{user `puppet_version`}}"
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
@@ -54,6 +55,7 @@
         "scripts/common/vagrant.sh",
 	    "scripts/centos/development_tools.sh",
         "scripts/common/virtualbox.sh",
+		"scripts/puppet-bootstrap/centos.sh",
         "scripts/centos/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
@@ -61,7 +63,7 @@
     }
   ],
   "variables": {
-    "box_basename": "centos-6.8",
+    "box_basename": "centos-7.3-puppet",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "1",
     "disk_size": "40960",
@@ -69,18 +71,17 @@
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "iso_checksum": "1dda55622614a8b43b448a72f87d6cb7f79de1eff49ee8c5881a7d9db28d4e35",
+    "iso_checksum": "c455ee948e872ad2194bdddd39045b83634e8613249182b88f549bb2319d97eb",
     "iso_checksum_type": "sha256",
-    "iso_mirror": "http://ftp.tudelft.nl/centos.org/6.8/isos/x86_64",
-    "iso_name": "CentOS-6.8-x86_64-bin-DVD1.iso",
+    "iso_mirror": "http://ftp.tudelft.nl/centos.org/7.3.1611/isos/x86_64",
+    "iso_name": "CentOS-7-x86_64-DVD-1611.iso",
 	"iso_path": "d:/software/centos",
-    "ks_path": "centos-6.8/ks.cfg",
+    "ks_path": "centos-7.3/ks.cfg",
     "memory": "512",
-    "name": "centos-6.8",
+    "name": "centos-7.3-puppet",
     "no_proxy": "{{env `no_proxy`}}",
-    "template": "centos-6.8-x86_64",
+	"puppet_version": "1.4.1-1",
+    "template": "centos-7.3-x86_64-puppet",
     "version": "2.1.TIMESTAMP"
   }
 }
-
-

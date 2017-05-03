@@ -45,7 +45,8 @@
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
+        "no_proxy={{user `no_proxy`}}",
+		"PUPPET_VERSION={{user `puppet_version`}}"
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
@@ -54,6 +55,7 @@
         "scripts/common/vagrant.sh",
 	    "scripts/centos/development_tools.sh",
         "scripts/common/virtualbox.sh",
+		"scripts/puppet-bootstrap/centos.sh",
         "scripts/centos/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
@@ -61,7 +63,7 @@
     }
   ],
   "variables": {
-    "box_basename": "centos-6.8",
+    "box_basename": "centos-6.8-puppet",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "1",
     "disk_size": "40960",
@@ -76,9 +78,10 @@
 	"iso_path": "d:/software/centos",
     "ks_path": "centos-6.8/ks.cfg",
     "memory": "512",
-    "name": "centos-6.8",
+    "name": "centos-6.8-puppet",
     "no_proxy": "{{env `no_proxy`}}",
-    "template": "centos-6.8-x86_64",
+	"puppet_version": "1.4.1-1",
+    "template": "centos-6.8-x86_64-puppet",
     "version": "2.1.TIMESTAMP"
   }
 }
