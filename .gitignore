@@ -5,4 +5,4 @@ builds/*.box
 packer_cache
 
 # Ignore output directory
-packer-
+packer-*
