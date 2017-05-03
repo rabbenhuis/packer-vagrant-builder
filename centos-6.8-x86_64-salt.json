@@ -1,0 +1,89 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `ks_path`}}<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "RedHat_64",
+      "hard_drive_interface": "sata",
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_urls": [
+	    "{{user `iso_path`}}/{{user `iso_name`}}",
+	    "{{user `iso_mirror`}}/{{user `iso_name`}}"
+	  ],
+      "output_directory": "packer-{{user `template`}}-virtualbox",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `template` }}"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "builds/{{user `box_basename`}}-{{user `salt_version`}}.{{.Provider}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+	    "ftp_proxy={{user `ftp_proxy`}}",
+        "HOME_DIR=/home/vagrant",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}",
+		"SALT_VERSION={{user `salt_version`}}"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "scripts/common/sshd.sh",
+        "scripts/centos/networking.sh",
+        "scripts/common/vagrant.sh",
+	    "scripts/centos/development_tools.sh",
+		"scripts/salt-bootstrap/centos.sh",
+        "scripts/common/virtualbox.sh",
+        "scripts/centos/cleanup.sh",
+        "scripts/common/minimize.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "box_basename": "centos-6.8-salt",
+    "build_timestamp": "{{isotime \"20060102150405\"}}",
+    "cpus": "1",
+    "disk_size": "40960",
+    "ftp_proxy": "{{env `ftp_proxy`}}",
+    "headless": "",
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "iso_checksum": "1dda55622614a8b43b448a72f87d6cb7f79de1eff49ee8c5881a7d9db28d4e35",
+    "iso_checksum_type": "sha256",
+    "iso_mirror": "http://ftp.tudelft.nl/centos.org/6.8/isos/x86_64",
+    "iso_name": "CentOS-6.8-x86_64-bin-DVD1.iso",
+	"iso_path": "d:/software/centos",
+    "ks_path": "centos-6.8/ks.cfg",
+    "memory": "512",
+    "name": "centos-6.8-salt",
+    "no_proxy": "{{env `no_proxy`}}",
+	"salt_version": "2016.11-1",
+    "template": "centos-6.8-x86_64-salt",
+    "version": "2.1.TIMESTAMP"
+  }
+}
+
+
